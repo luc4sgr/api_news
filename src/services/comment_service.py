@@ -10,13 +10,8 @@ class CommentService:
         self.comments.append(comment)
         return comment
     
-    def comments_list(self, news_id: int) -> list[Comment]:
-        comments: list[Comment] = []
-        for comment in self.comments:
-            if comment.news_id == news_id:
-                comments.append(comment)
-
-        return comments
+    def list_comments(self, news_id: int) -> list[Comment]:
+        return [comment for comment in self.comments if comment.news_id == news_id]
 
         
   
