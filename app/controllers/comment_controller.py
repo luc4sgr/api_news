@@ -10,20 +10,10 @@ def create_comment():
     data = validate_create_comment(request)
     comment = comment_service.create_comment(**data)
 
-    return jsonify({
-        "comment_id": comment.comment_id,
-        "news_id": comment.news_id,
-        "user_id": comment.user_id,
-        "content": comment.content
-    }), 201
+    return jsonify(comment.to_dict()), 201
 
 @comment_bp.route('/<int:news_id>', methods=['GET'])
-def list_comments(news_id):
-    list_comments = comment_service.list_comments(news_id=news_id)
-    result = [{
-        'comment_id' : comment.comment_id,
-        'news_id' : comment.news_id,
-        'user_id' : comment.user_id,
-        'content' : comment.content,
-        } for comment in list_comments]
+def comments_list(news_id):
+    comments_list = comment_service.comments_list(news_id=news_id)
+    result = [comment.to_dict() for comment in comments_list]
     return jsonify(result), 200

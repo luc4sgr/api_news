@@ -10,10 +10,10 @@ def create_catagory():
     data = validate_create_category(request)
     catagory  = catagory_service.create_category(**data)
     
-    return jsonify({'name':catagory.name}), 201
+    return jsonify(catagory.to_dict()), 201
 
 @category_bp.route('', methods=['GET'])
-def list_category():
-    list_category = catagory_service.list_catagorys()
-    result = [{'name':catagory.name} for catagory in list_category]
+def categories_list():
+    categories_list = catagory_service.list_catagorys()
+    result = [catagory.to_dict() for catagory in categories_list]
     return jsonify(result), 200

@@ -11,5 +11,5 @@ class UserService:
         
         return user
     
-    def list_users(self):
+    def users_list(self):
         return self.users

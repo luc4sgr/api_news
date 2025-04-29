@@ -10,7 +10,7 @@ class NewsService:
         self.news.append(news)
         return news
     
-    def list_news(self) -> list[News]:
+    def news_list(self) -> list[News]:
         return self.news
     
     def like_news(self, news_id: int):

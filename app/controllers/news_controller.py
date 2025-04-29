@@ -10,23 +10,11 @@ def create_news():
     data = validate_create_news(request)
     news = news_service.create_news(**data)
     
-    return jsonify({
-       'news_id' : news.news_id,
-       'title' : news.title,
-       'content' : news.content,
-       'author_id' : news.author_id,
-       'category' : news.category,
-       'likes' : news.likes,
-    }), 201
+    return jsonify(news.to_dict()), 201
     
 @news_bp.route('', methods=['GET'])
-def list_news():
-    list_news = news_service.list_news()
-    result = [{  'news_id' : news.news_id,
-       'title' : news.title,
-       'content' : news.content,
-       'author_id' : news.author_id,
-       'category' : news.category,
-       'likes' : news.likes,} for news in list_news]
+def news_list():
+    news_list = news_service.news_list()
+    result = [news.to_dict() for news in news_list]
     
     return jsonify(result), 200
