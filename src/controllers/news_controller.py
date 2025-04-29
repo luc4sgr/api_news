@@ -1,6 +1,6 @@
 from flask import request, jsonify
-from services.news_service import NewsService
-from validators.news_validator import validate_create_news
+from src.services.news_service import NewsService
+from src.validators.news_validator import validate_create_news
 
 class NewsController:
     def __init__(self):

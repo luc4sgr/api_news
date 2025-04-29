@@ -1,6 +1,6 @@
 from flask import request, jsonify
-from services.user_service import UserService
-from validators.user_validator import validate_create_user
+from src.services.user_service import UserService
+from src.validators.user_validator import validate_create_user
 
 class UserController:
     def __init__(self):
