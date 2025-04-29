@@ -12,6 +12,10 @@ class NewsController:
     def create(self):
         data = validate_create_news(request)
         news = self.news_service.create_news(**data)
+        
+         # 🧹 limpa o cache pra forçar nova leitura
+        news_cache.clear()
+        
         return jsonify(news.to_dict()), 201
     
     def list(self):
