@@ -1,11 +1,12 @@
 from src.models.news import News
+import uuid
 
 class NewsService:
     def __init__(self):
         self.news: list[News] = []
     
     def create_news(self, author_id:int, category:str, content:str, title:str="") -> News:
-        news_id = len(self.news) + 1
+        news_id = str(uuid.uuid4())
         news = News(news_id=news_id, author_id=author_id,category=category, content=content, likes=0, title=title )
         self.news.append(news)
         return news

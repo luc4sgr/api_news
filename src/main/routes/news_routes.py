@@ -6,4 +6,4 @@ controller = NewsController()
 
 news_bp.route("", methods=["POST"])(controller.create)
 news_bp.route("", methods=["GET"])(controller.list)
-news_bp.route("/<int:news_id>/like", methods=["POST"])(controller.like)
+news_bp.route("/<string:news_id>/like", methods=["POST"])(controller.like)

@@ -1,5 +1,5 @@
 class News:
-    def __init__(self, news_id: int, title: str, content: str, author_id: int, category: str, likes: int = 0):
+    def __init__(self, news_id: str, title: str, content: str, author_id: str, category: str, likes: int = 0):
         self.news_id = news_id
         self.title = title
         self.content = content
