@@ -5,6 +5,6 @@ def validate_create_news(request):
         "title": {"type": "string", "required": True, "empty": False},
         "content": {"type": "string", "required": True, "empty": False},
         "category": {"type": "string", "required": True, "empty": False},
-        "author_id": {"type": "integer", "required": True}
+        "author_id": {"type": "string", "required": True}
     }
     return validate_request(schema, request)
