@@ -1,16 +1,15 @@
-from src.models.user import User
 import uuid
+from src.models.user import User
+from src.repositories.memory.user_repository import InMemoryUserRepository
 
 class UserService:
     def __init__(self):
-        self.users: list[User] = []
-        
-    def  create_user(self, username:str):
-        user_id = str(uuid.uuid4())
-        user = User( user_id=user_id, username=username )
-        self.users.append(user)
-        
+        self.repo = InMemoryUserRepository()
+
+    def create_user(self, username: str):
+        user = User(user_id=str(uuid.uuid4()), username=username)
+        self.repo.create(user)
         return user
-    
-    def users_list(self):
-        return self.users
+
+    def list_users(self):
+        return self.repo.list()
