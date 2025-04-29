@@ -1,0 +1,22 @@
+from flask import request, jsonify
+from services.news_service import NewsService
+from validators.news_validator import validate_create_news
+
+class NewsController:
+    def __init__(self):
+        self.news_service = NewsService()
+    
+    def create(self):
+        data = validate_create_news(request)
+        news = self.news_service.create_news(**data)
+        return jsonify(news.to_dict()), 201
+    
+    def list(self):
+        news_list = self.news_service.list_news()
+        return jsonify([news.to_dict() for news in news_list]), 200    
+    
+    def like(self, news_id):
+        news = self.news_service.like_news(news_id)
+        if not news:
+            return jsonify({"error": "News not found."}), 404
+        return jsonify(news.to_dict()), 200
