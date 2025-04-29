@@ -18,3 +18,12 @@ def news_list():
     result = [news.to_dict() for news in news_list]
     
     return jsonify(result), 200
+
+@news_bp.route('/<int:news_id>/like', methods=['POST'])
+def like_news(news_id):
+    news = news_service.like_news(news_id)
+    
+    if not news:
+        return jsonify({"error": "News not found."}), 404
+
+    return jsonify(news.to_dict()), 200
