@@ -1,6 +1,7 @@
 from flask import request, jsonify
 from src.services.news_service import NewsService
 from src.validators.news_validator import validate_create_news
+from src.filters.strategy_manager import FilterManager
 
 class NewsController:
     def __init__(self):
@@ -12,8 +13,10 @@ class NewsController:
         return jsonify(news.to_dict()), 201
     
     def list(self):
+        params = request.args
         news_list = self.news_service.list_news()
-        return jsonify([news.to_dict() for news in news_list]), 200    
+        filtered = FilterManager().apply_filters(news_list, params)
+        return jsonify([news.to_dict() for news in filtered]), 200
     
     def like(self, news_id):
         news = self.news_service.like_news(news_id)
