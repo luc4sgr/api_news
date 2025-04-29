@@ -1,22 +1,15 @@
 from flask import Blueprint, request, jsonify
 from app.services.news_service import NewsService
+from app.validators.news_validator import validate_create_news
 
 news_bp = Blueprint('news', __name__, url_prefix='/news')
 news_service = NewsService()
 
 @news_bp.route("",  methods=['POST'])
 def create_news():
-    data = request.get_json()
-    author_id = data.get('author_id')
-    category = data.get('category')
-    content = data.get('content')
-    title = data.get('title')
-    news = news_service.create_news(
-        author_id=author_id,
-        category=category,
-        content=content,
-        title=title
-        )
+    data = validate_create_news(request)
+    news = news_service.create_news(**data)
+    
     return jsonify({
        'news_id' : news.news_id,
        'title' : news.title,
@@ -28,7 +21,7 @@ def create_news():
     
 @news_bp.route('', methods=['GET'])
 def list_news():
-    list_news = news_service.like_news()
+    list_news = news_service.list_news()
     result = [{  'news_id' : news.news_id,
        'title' : news.title,
        'content' : news.content,
