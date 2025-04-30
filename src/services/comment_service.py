@@ -1,10 +1,10 @@
 import uuid
 from src.models.comment import Comment
-from src.repositories.memory.comment_repository import InMemoryCommentRepository
+from  src.repositories.database.comment_repository import PostgresCommentRepository
 
 class CommentService:
     def __init__(self):
-        self.repo = InMemoryCommentRepository()
+        self.repo = PostgresCommentRepository()
     
     def create_comment(self, content:str, news_id:int, user_id:int ) -> Comment:
         comment_id = str(uuid.uuid4())

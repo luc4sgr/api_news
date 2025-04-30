@@ -1,9 +1,8 @@
 from src.models.category import Category
-from src.repositories.memory.category_repository import InMemoryCategoryRepository
-
+from src.repositories.database.category_repository import PostgresCategoryRepository
 class CategoryService:
     def __init__(self):
-        self.repo = InMemoryCategoryRepository()
+        self.repo = PostgresCategoryRepository()
         
     def create_category(self, name:str) -> Category:
         category = Category(name=name)
